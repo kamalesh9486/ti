@@ -1,0 +1,82 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Jun 04, 2024 at 08:04 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.0.25
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `vinzo1`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `grievance_`
+--
+
+CREATE TABLE `grievance_` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `register_number` varchar(255) NOT NULL,
+  `course_name` varchar(255) NOT NULL,
+  `mobile` varchar(10) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `address` text NOT NULL,
+  `id_card_filename` varchar(255) NOT NULL,
+  `grievance_type` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `grievance_`
+--
+
+INSERT INTO `grievance_` (`id`, `name`, `register_number`, `course_name`, `mobile`, `email`, `address`, `id_card_filename`, `grievance_type`) VALUES
+(1, 'user 1', '23PSY01', 'PSY', '9876543210', 'Hello@gmail.com', 'MDU', '360_F_244436923_vkMe10KKKiw5bjhZeRDT05moxWcPpdmb.jpg', 'Provisional Certificate'),
+(2, 'user 2', '23PSY02', 'Msc', '9898989898', 'h@gmail.com', 'mdu', 'my image.jpg', 'Genuine Certificate'),
+(3, 'user 2', '23PSY02', 'Msc', '9898989898', 'h@gmail.com', 'mdu', 'my image.jpg', 'Provisional Certificate'),
+(4, 'user3\\', '23psy03', 'msc', '9988989889', 'h@gmail', 'mdu\r\n', 'my image.jpg', 'Consolidated Mark Statement'),
+(5, 'user3\\', '23psy03', 'msc', '9988989889', 'h@gmail', 'mdu\r\n', 'my image.jpg', 'Consolidated Mark Statement'),
+(6, 'user3\\', '23psy03', 'msc', '9988989889', 'h@gmail', 'mdu\r\n', 'my image.jpg', 'Result'),
+(7, 'dw', '23', 'dw', '2322323232', 'd@g', 'n\r\n', 'my image.jpg', 'Consolidated Mark Statement'),
+(8, 'dw', '23', 'dw', '2322323232', 'd@g', 'n\r\n', 'my image.jpg', 'Result'),
+(9, 'sharmi', '23mca9', 'mca', '8976859493', 'sharmilega@gmail.com', 'fdg', 'my image.jpg', 'Provisional Certificate'),
+(10, 'sharmi', '23mca9', 'mca', '8976859493', 'sharmilega@gmail.com', 'fdg', 'my image.jpg', 'Consolidated Mark Statement'),
+(11, 'sharmi', '23mca9', 'mca', '8976859493', 'sharmilega@gmail.com', 'fdg', 'my image.jpg', 'Provisional Certificate');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `grievance_`
+--
+ALTER TABLE `grievance_`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `grievance_`
+--
+ALTER TABLE `grievance_`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
