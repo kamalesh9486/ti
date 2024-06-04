@@ -1,0 +1,82 @@
+<?php
+session_start();
+require_once('config/db.php');
+
+if (!isset($_SESSION['register_number'])) {
+    die("No register number found. Please submit the form first.");
+}
+
+if (!isset($_SESSION['grievance_type'])) {
+    die("No grievance type found. Please submit the form first.");
+}
+
+$register_number = $_SESSION['register_number'];
+$grievanceType = $_SESSION['grievance_type']; // Retrieve grievance type from session
+
+$uploadDir = 'uploads/';
+if (!file_exists($uploadDir)) {
+    mkdir($uploadDir, 0777, true);
+}
+
+$fields = [
+    'fees_payment_details',
+    'hall_ticket',
+    'exam_application_form',
+    'available_mark_statement',
+    'consolidated_mark_statement',
+    'course_completion_certificate',
+    'application_fees',
+    'genuine_certificate_fees',
+    'pstm'
+];
+
+$documents = [];
+foreach ($fields as $field) {
+    if (isset($_FILES[$field]) && $_FILES[$field]['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $_FILES[$field]['tmp_name'];
+        $fileName = $_FILES[$field]['name'];
+        $destPath = $uploadDir . basename($fileName);
+
+        if (move_uploaded_file($fileTmpPath, $destPath)) {
+            $documents[$field] = $destPath;
+        } else {
+            $documents[$field] = null;
+        }
+    } else {
+        $documents[$field] = null;
+    }
+}
+
+// Prepare the SQL query dynamically based on uploaded files
+$columns = ['register_number', 'grievance_type'];
+$placeholders = ['?', '?'];
+$values = [$register_number, $grievanceType];
+
+foreach ($documents as $column => $path) {
+    if ($path !== null) {
+        $columns[] = $column;
+        $placeholders[] = '?';
+        $values[] = $path;
+    }
+}
+
+$query = "INSERT INTO grievances1 (" . implode(', ', $columns) . ") VALUES (" . implode(', ', $placeholders) . ")";
+$stmt = mysqli_prepare($con, $query);
+
+if ($stmt) {
+    $types = str_repeat('s', count($values));
+    mysqli_stmt_bind_param($stmt, $types, ...$values);
+
+    if (mysqli_stmt_execute($stmt)) {
+        echo "Documents uploaded successfully.";
+    } else {
+        echo "Error: " . mysqli_stmt_error($stmt);
+    }
+
+    mysqli_stmt_close($stmt);
+} else {
+    echo "Error preparing statement: " . mysqli_error($con);
+}
+
+mysqli_close($con);
+?>
